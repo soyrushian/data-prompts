@@ -1,0 +1,46 @@
+name: Generate Prompts Index
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'prompts/*.md'
+  workflow_dispatch:
+
+jobs:
+  generate-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate index.json
+        run: |
+          cd prompts
+          echo '{' > index.json
+          echo '  "files": [' >> index.json
+          first=true
+          for file in *.md; do
+            if [ -f "$file" ]; then
+              if [ "$first" = true ]; then
+                echo "    \"$file\"" >> index.json
+                first=false
+              else
+                echo "    ,\"$file\"" >> index.json
+              fi
+            fi
+          done
+          echo '  ],' >> index.json
+          echo "  \"generated\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"," >> index.json
+          echo "  \"count\": $(ls -1 *.md 2>/dev/null | wc -l)" >> index.json
+          echo '}' >> index.json
+          cat index.json
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add prompts/index.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-generate prompts index [skip ci]" && git push)
