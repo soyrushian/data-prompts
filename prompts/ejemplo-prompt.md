@@ -1,5 +1,5 @@
 ---
-title: test
+title: demo prompt
 area: analytics
 tech: python
 model: chatgpt
