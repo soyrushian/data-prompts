@@ -15,8 +15,8 @@
 # Fork el repositorio desde GitHub
 
 # Clona tu fork
-git clone https://github.com/soyrushian/data-prompts-hub.git
-cd data-prompts-hub
+git clone https://github.com/soyrushian/data-prompts.git
+cd data-prompts
 
 # Crea una nueva rama
 git checkout -b add-prompt-nombre-descriptivo
@@ -121,7 +121,7 @@ Add: Python DataFrame Performance Optimizer
 
 Si encuentras un prompt que no funciona bien:
 
-1. Abre un [Issue](https://github.com/soyrushian/data-prompts-hub/issues)
+1. Abre un [Issue](https://github.com/soyrushian/data-prompts/issues)
 2. Incluye:
    - Nombre del prompt
    - IA utilizada
@@ -131,7 +131,7 @@ Si encuentras un prompt que no funciona bien:
 ## 🙋‍♀️ ¿Preguntas?
 
 Si tienes dudas sobre el proceso de contribución:
-- Abre un [Issue](https://github.com/soyrushian/data-prompts-hub/issues) con tu pregunta
+- Abre un [Issue](https://github.com/soyrushian/data-prompts/issues) con tu pregunta
 - Menciona `@soyrushian` en la conversación
 
 ## 🌟 Reconocimientos
