@@ -15,7 +15,7 @@ Bienvenido a Data Prompts Hub, una colección curada de prompts de alta calidad 
 
 ## 🚀 Uso
 
-Visita **[https://soyrushian.github.io/data-prompts-hub/](https://soyrushian.github.io/data-prompts-hub/)** para explorar todos los prompts disponibles.
+Visita **[https://soyrushian.github.io/data-prompts/](https://soyrushian.github.io/data-prompts/)** para explorar todos los prompts disponibles.
 
 ## 🤝 Cómo Contribuir
 
@@ -49,7 +49,7 @@ Breve descripción de qué hace el prompt y cuándo usarlo.
 
 ## 📂 Estructura del Repositorio
 ```
-data-prompts-hub/
+data-prompts/
 ├── index.html              # Sitio web
 ├── prompts/
 │   ├── index.json         # Índice de prompts
@@ -91,4 +91,4 @@ Gracias a todos los contribuyentes que hacen posible esta colección.
 
 ---
 
-¿Tienes preguntas? Abre un [Issue](https://github.com/soyrushian/data-prompts-hub/issues) o contribuye con tus propios prompts.
+¿Tienes preguntas? Abre un [Issue](https://github.com/soyrushian/data-prompts/issues) o contribuye con tus propios prompts.
