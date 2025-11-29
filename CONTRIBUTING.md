@@ -54,26 +54,14 @@ Una descripción clara y concisa (2-3 oraciones) de:
 - Probado al menos una vez
 ```
 
-### 4. Actualiza el índice
-
-Agrega el nombre de tu archivo a `prompts/index.json`:
-```json
-{
-  "files": [
-    "sql-query-optimizer.md",
-    "tu-nuevo-prompt.md"  <-- Agregar aquí
-  ]
-}
-```
-
-### 5. Commit y Push
+### 6. Commit y Push
 ```bash
 git add prompts/tu-nuevo-prompt.md prompts/index.json
 git commit -m "Add: [Nombre descriptivo del prompt]"
 git push origin add-prompt-nombre-descriptivo
 ```
 
-### 6. Crea un Pull Request
+### 7. Crea un Pull Request
 
 - Ve a tu fork en GitHub
 - Haz clic en "New Pull Request"
