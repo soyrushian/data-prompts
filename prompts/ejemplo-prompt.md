@@ -1,5 +1,5 @@
 ---
-title: Análisis Exploratorio de Datos
+title: test
 area: analytics
 tech: python
 model: chatgpt
