@@ -3,12 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Prompts Gallery</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Data Prompts Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #060010; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #060010 0%, #0a0020 100%); border-bottom: 1px solid rgba(1, 245, 156, 0.1); padding: 2rem 1rem; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo-section { display: flex; align-items: center; gap: 1rem; }
+        .logo { width: 50px; height: 50px; background: linear-gradient(135deg, #01F59C 0%, #00c978 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; color: #060010; }
+        h1 { font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, #FFFFFF 0%, #01F59C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .subtitle { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
+        .header-actions { display: flex; gap: 1rem; }
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { background: #01F59C; color: #060010; }
+        .btn-primary:hover { background: #00c978; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(1, 245, 156, 0.3); }
+        .btn-secondary { background: rgba(255, 255, 255, 0.1); color: #FFFFFF; border: 1px solid rgba(1, 245, 156, 0.3); }
+        .btn-secondary:hover { background: rgba(1, 245, 156, 0.1); border-color: #01F59C; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem; }
+        .search-section { margin-bottom: 2rem; }
+        .search-box { width: 100%; padding: 1rem 1rem 1rem 3rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(1, 245, 156, 0.2); border-radius: 12px; color: #FFFFFF; font-size: 1rem; transition: all 0.3s ease; }
+        .search-box:focus { outline: none; border-color: #01F59C; background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 3px rgba(1, 245, 156, 0.1); }
+        .search-box::placeholder { color: rgba(255, 255, 255, 0.4); }
+        .search-wrapper { position: relative; }
+        .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: rgba(1, 245, 156, 0.6); }
+        .filters { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.5rem 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(1, 245, 156, 0.2); border-radius: 20px; color: rgba(255, 255, 255, 0.7); cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; }
+        .filter-btn:hover { background: rgba(1, 245, 156, 0.1); color: #FFFFFF; border-color: #01F59C; }
+        .filter-btn.active { background: #01F59C; color: #060010; border-color: #01F59C; font-weight: 600; }
+        .ai-filters { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+        .ai-filter-btn { padding: 0.4rem 0.9rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; color: rgba(255, 255, 255, 0.6); cursor: pointer; transition: all 0.3s ease; font-size: 0.85rem; }
+        .ai-filter-btn:hover { background: rgba(1, 245, 156, 0.05); color: #FFFFFF; border-color: rgba(1, 245, 156, 0.3); }
+        .ai-filter-btn.active { background: rgba(1, 245, 156, 0.15); color: #01F59C; border-color: #01F59C; font-weight: 600; }
+        .results-count { margin: 1.5rem 0; color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; }
+        .prompts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        .prompt-card { background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(1, 245, 156, 0.02) 100%); border: 1px solid rgba(1, 245, 156, 0.15); border-radius: 16px; padding: 1.5rem; transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .prompt-card:hover { transform: translateY(-4px); border-color: #01F59C; box-shadow: 0 8px 30px rgba(1, 245, 156, 0.2); }
+        .prompt-header { margin-bottom: 1rem; }
+        .prompt-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #FFFFFF; }
+        .prompt-category { display: inline-block; padding: 0.25rem 0.75rem; background: rgba(1, 245, 156, 0.15); color: #01F59C; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+        .prompt-description { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-bottom: 1rem; flex-grow: 1; }
+        .prompt-meta { margin-bottom: 1rem; }
+        .meta-label { color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin-bottom: 0.25rem; }
+        .meta-value { color: rgba(255, 255, 255, 0.9); font-size: 0.85rem; font-weight: 500; }
+        .ai-models { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+        .ai-badge { padding: 0.25rem 0.6rem; background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.8); border-radius: 8px; font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+        .tag { padding: 0.25rem 0.6rem; background: rgba(255, 255, 255, 0.03); color: rgba(255, 255, 255, 0.6); border-radius: 8px; font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.08); }
+        .prompt-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .author { color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; }
+        .author-name { color: #01F59C; font-weight: 600; }
+        .copy-btn { padding: 0.5rem 1rem; background: rgba(1, 245, 156, 0.1); border: 1px solid #01F59C; color: #01F59C; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; }
+        .copy-btn:hover { background: #01F59C; color: #060010; }
+        .empty-state { text-align: center; padding: 4rem 2rem; }
+        .empty-icon { font-size: 4rem; opacity: 0.3; margin-bottom: 1rem; }
+        .empty-title { font-size: 1.5rem; margin-bottom: 0.5rem; color: rgba(255, 255, 255, 0.8); }
+        .empty-text { color: rgba(255, 255, 255, 0.5); }
+        .footer { background: rgba(0, 0, 0, 0.3); border-top: 1px solid rgba(1, 245, 156, 0.1); margin-top: 4rem; padding: 2rem 1rem; text-align: center; }
+        .footer-text { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
+        .footer-link { color: #01F59C; text-decoration: none; font-weight: 600; }
+        .footer-link:hover { text-decoration: underline; }
+        @media (max-width: 768px) { .prompts-grid { grid-template-columns: 1fr; } h1 { font-size: 1.5rem; } .header-content { flex-direction: column; align-items: flex-start; } }
+    </style>
 </head>
 <body>
-    <div id="app"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    <script src="script.js"></script>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">📊</div>
+                <div><h1>Data Prompts Hub</h1><p class="subtitle">Prompts especializados para profesionales de datos</p></div>
+            </div>
+            <div class="header-actions">
+                <a href="https://github.com/TU-USUARIO/data-prompts-hub" class="btn btn-primary">➕ Contribuir</a>
+                <a href="https://github.com/TU-USUARIO/data-prompts-hub" class="btn btn-secondary">🐙 GitHub</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="search-section">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-box" id="searchInput" placeholder="Buscar prompts, tecnologías, tags...">
+            </div>
+            <div class="filters" id="categoryFilters"></div>
+            <div class="ai-filters" id="aiFilters"></div>
+        </div>
+        <div class="results-count" id="resultsCount"></div>
+        <div class="prompts-grid" id="promptsGrid"></div>
+    </div>
+    <footer class="footer">
+        <p class="footer-text">Data Prompts Hub - Repositorio de la comunidad<br>¿Quieres agregar tu prompt? <a href="https://github.com/TU-USUARIO/data-prompts-hub" class="footer-link">Contribuye en GitHub</a></p>
+    </footer>
+    <script src="app.js"></script>
 </body>
 </html>
