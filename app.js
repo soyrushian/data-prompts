@@ -11,44 +11,35 @@ var categories = [
 ];
 var aiModels = ['ChatGPT', 'Claude', 'Gemini', 'Copilot', 'Llama'];
 
-// Lista de archivos MD - agregar aquí cada nuevo prompt
-var promptFiles = [
-    'sql-query-optimizer.md',
-    'dashboard-requirements.md',
-    'python-data-cleaning.md',
-    'ml-model-explainer.md',
-    'data-pipeline-architect.md',
-    'ab-test-analyzer.md'
-];
-
 function loadPrompts() {
-    var promises = [];
-    for (var i = 0; i < promptFiles.length; i++) {
-        promises.push(
-            fetch('prompts/' + promptFiles[i])
-                .then(function(response) { 
-                    if (!response.ok) throw new Error('Error cargando prompt');
-                    return response.text(); 
-                })
-        );
-    }
-    
-    Promise.all(promises)
-        .then(function(contents) {
-            for (var j = 0; j < contents.length; j++) {
-                var prompt = parseMarkdown(contents[j], promptFiles[j]);
-                allPrompts.push(prompt);
+    fetch('prompts/index.json')
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            var promises = [];
+            for (var i = 0; i < data.files.length; i++) {
+                promises.push(
+                    fetch('prompts/' + data.files[i])
+                        .then(function(r) { 
+                            if (!r.ok) throw new Error('Error cargando prompt');
+                            return r.text(); 
+                        })
+                );
             }
-            filteredPrompts = allPrompts.slice();
-            renderPrompts();
-            renderFilters();
+            return Promise.all(promises).then(function(contents) {
+                for (var j = 0; j < contents.length; j++) {
+                    allPrompts.push(parseMarkdown(contents[j], data.files[j]));
+                }
+                filteredPrompts = allPrompts.slice();
+                renderPrompts();
+                renderFilters();
+            });
         })
         .catch(function(error) { 
             console.error('Error cargando prompts:', error);
             document.getElementById('promptsGrid').innerHTML = 
                 '<div class="empty-state"><div class="empty-icon">⚠️</div>' +
                 '<h3 class="empty-title">Error al cargar prompts</h3>' +
-                '<p class="empty-text">Verifica que los archivos .md estén en la carpeta prompts/</p></div>';
+                '<p class="empty-text">Asegúrate de que los archivos .md estén en la carpeta prompts/</p></div>';
         });
 }
 
@@ -318,3 +309,41 @@ function escapeHtml(text) {
 
 document.getElementById('searchInput').addEventListener('input', applyFilters);
 loadPrompts();
+```
+
+---
+
+## 🎯 **Cómo funciona:**
+
+1. **Subes un nuevo `.md`** a la carpeta `prompts/`
+2. **GitHub Actions detecta el cambio automáticamente**
+3. **Genera `prompts/index.json`** con la lista de archivos
+4. **Commit automático** del index.json
+5. **Tu sitio se actualiza solo** 🎉
+
+---
+
+## ✅ **Ventajas:**
+
+- ✅ Solo subes archivos `.md`, nada más
+- ✅ 100% automático
+- ✅ Funciona en GitHub Pages
+- ✅ No requiere backend
+- ✅ El `index.json` se regenera siempre que cambies archivos
+
+---
+
+## 📦 **Estructura final:**
+```
+data-prompts-hub/
+├── index.html
+├── app.js
+├── .github/
+│   └── workflows/
+│       └── generate-index.yml  ← Magia automática
+├── prompts/
+│   ├── index.json  ← Se genera solo
+│   ├── prompt1.md
+│   ├── prompt2.md
+│   └── prompt3.md  ← Solo agregas esto
+└── README.md
