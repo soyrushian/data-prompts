@@ -90,19 +90,6 @@ Buscamos prompts de alta calidad que:
 ✅ Estén bien documentados  
 ✅ Sigan las mejores prácticas  
 
-Lee nuestra [Guía de Contribución](CONTRIBUTING.md) para más detalles.
-
-## 💡 Ejemplos de Buenos Prompts
-
-- **Optimizador de Queries SQL**: Analiza y mejora el rendimiento de consultas complejas
-- **Diseñador de KPIs**: Ayuda a definir métricas accionables para negocios
-- **Detector de Anomalías**: Identifica patrones inusuales en datasets
-- **Generador de Documentación**: Crea docs técnicas para pipelines de datos
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
-
 ## 🙏 Agradecimientos
 
 Gracias a todos los [contribuidores](https://github.com/soyrushian/data-prompts/graphs/contributors) que hacen posible este proyecto.
