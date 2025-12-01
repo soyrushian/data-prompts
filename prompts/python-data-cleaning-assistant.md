@@ -1,5 +1,5 @@
 # Python Data Cleaning Assistant
-## Autor: SoyRushian
+## Author: SoyRushian
 ## Category: Data Analytics
 ## Tags: Python, Data Cleaning, Pandas
 ## Description: Genera código Python optimizado para limpiar y preparar datasets con múltiples tipos de problemas de calidad de datos. Incluye detección de anomalías y validación.
