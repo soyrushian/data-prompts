@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2025-12-01T00:54:37.477Z",
+  "generatedAt": "2025-12-01T00:54:48.937Z",
   "totalPrompts": 2,
   "prompts": [
     {
@@ -16,7 +16,7 @@
         "Pandas"
       ],
       "filename": "python-data-cleaning-assistant.md",
-      "lastModified": "2025-12-01T00:54:36.862Z"
+      "lastModified": "2025-12-01T00:54:46.398Z"
     },
     {
       "id": "sql-query-optimizer",
@@ -24,14 +24,14 @@
       "description": "Analiza consultas SQL y proporciona recomendaciones detalladas de optimización",
       "author": "",
       "category": "sql",
-      "prompt": "Actúa como un experto Database Administrator con 15 años de experiencia. Analiza la siguiente consulta SQL y proporciona:\n1. **Análisis de Rendimiento**: Identifica cuellos de botella y operaciones costosas\n2. **Recomendaciones de Índices**: Sugiere índices específicos que mejorarían el performance\n3. **Refactorización**: Reescribe la consulta de forma más eficiente si es posible\n4. **Estimación de Impacto**: Calcula el impacto esperado de cada optimización (bajo/medio/alto)\n5. **Mejores Prácticas**: Señala cualquier anti-patrón o violación de mejores prácticas\nConsulta SQL:\n```sql\n{PASTE_YOUR_SQL_HERE}\n```\nPor favor estructura tu respuesta en secciones claras y proporciona el código SQL optimizado al final.",
+      "prompt": "## Author: SoyRushian\nActúa como un experto Database Administrator con 15 años de experiencia. Analiza la siguiente consulta SQL y proporciona:\n1. **Análisis de Rendimiento**: Identifica cuellos de botella y operaciones costosas\n2. **Recomendaciones de Índices**: Sugiere índices específicos que mejorarían el performance\n3. **Refactorización**: Reescribe la consulta de forma más eficiente si es posible\n4. **Estimación de Impacto**: Calcula el impacto esperado de cada optimización (bajo/medio/alto)\n5. **Mejores Prácticas**: Señala cualquier anti-patrón o violación de mejores prácticas\nConsulta SQL:\n```sql\n{PASTE_YOUR_SQL_HERE}\n```\nPor favor estructura tu respuesta en secciones claras y proporciona el código SQL optimizado al final.",
       "tags": [
         "performance",
         "optimization",
         "query-tuning"
       ],
       "filename": "sql-query-optimizer.md",
-      "lastModified": "2025-12-01T00:54:36.862Z"
+      "lastModified": "2025-12-01T00:54:46.399Z"
     }
   ]
 }
