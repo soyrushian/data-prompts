@@ -1,37 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2025-12-01T00:54:48.937Z",
-  "totalPrompts": 2,
-  "prompts": [
-    {
-      "id": "python-data-cleaning-assistant",
-      "title": "Python Data Cleaning Assistant",
-      "description": "Genera código Python optimizado para limpiar y preparar datasets con múltiples tipos de problemas de calidad de datos. Incluye detección de anomalías y validación.",
-      "author": "",
-      "category": "data analytics",
-      "prompt": "Eres un experto en limpieza y preparación de datos con Python, especializado en pandas y numpy. Tu código es eficiente, bien documentado y sigue las mejores prácticas de la industria.\nDado el siguiente dataset con problemas de calidad, genera código Python que realice:\n1. **Detección y manejo de valores nulos**:\n- Análisis del porcentaje de nulos por columna\n- Estrategias de imputación apropiadas según el tipo de dato\n- Documentación de las decisiones tomadas\n2. **Identificación de outliers**:\n- Método estadístico para detectarlos (IQR, Z-score, etc.)\n- Visualización de outliers\n- Estrategia de tratamiento\n3. **Estandarización de formatos**:\n- Limpieza de strings (espacios, mayúsculas, caracteres especiales)\n- Conversión de tipos de datos\n- Normalización de fechas y timestamps\n4. **Validación de tipos de datos**:\n- Verificación de coherencia en cada columna\n- Conversión a tipos apropiados\n- Manejo de errores de conversión\n5. **Reporte de calidad de datos**:\n- Resumen ejecutivo de problemas encontrados\n- Estadísticas antes/después de la limpieza\n- Recomendaciones para prevención futura\nInformación del dataset:\n- Formato: [CSV/Excel/Parquet]\n- Tamaño aproximado: [número de filas y columnas]\n- Principales problemas observados: [describe brevemente]\n[PEGA AQUÍ UNA MUESTRA DEL DATASET O DESCRIBE SU ESTRUCTURA]",
-      "tags": [
-        "Python",
-        "Data Cleaning",
-        "Pandas"
-      ],
-      "filename": "python-data-cleaning-assistant.md",
-      "lastModified": "2025-12-01T00:54:46.398Z"
-    },
-    {
-      "id": "sql-query-optimizer",
-      "title": "Optimizador de Consultas SQL",
-      "description": "Analiza consultas SQL y proporciona recomendaciones detalladas de optimización",
-      "author": "",
-      "category": "sql",
-      "prompt": "## Author: SoyRushian\nActúa como un experto Database Administrator con 15 años de experiencia. Analiza la siguiente consulta SQL y proporciona:\n1. **Análisis de Rendimiento**: Identifica cuellos de botella y operaciones costosas\n2. **Recomendaciones de Índices**: Sugiere índices específicos que mejorarían el performance\n3. **Refactorización**: Reescribe la consulta de forma más eficiente si es posible\n4. **Estimación de Impacto**: Calcula el impacto esperado de cada optimización (bajo/medio/alto)\n5. **Mejores Prácticas**: Señala cualquier anti-patrón o violación de mejores prácticas\nConsulta SQL:\n```sql\n{PASTE_YOUR_SQL_HERE}\n```\nPor favor estructura tu respuesta en secciones claras y proporciona el código SQL optimizado al final.",
-      "tags": [
-        "performance",
-        "optimization",
-        "query-tuning"
-      ],
-      "filename": "sql-query-optimizer.md",
-      "lastModified": "2025-12-01T00:54:46.399Z"
-    }
-  ]
+  "generatedAt": "2025-12-01T00:59:22.473Z",
+  "totalPrompts": 0,
+  "prompts": []
 }
