@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data & BI Prompts Hub</title>
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">    
     <style>
         * {
             margin: 0;
@@ -658,6 +661,7 @@
                     </div>
                     <p class="prompt-description">${p.description}</p>
                     <div class="tags">
+                        <span class="tag">${p.category}</span>
                         ${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                     </div>
                 </div>

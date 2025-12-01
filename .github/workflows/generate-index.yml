@@ -46,7 +46,7 @@ jobs:
                   const content = fs.readFileSync(filePath, 'utf8');
                   const lines = content.split('\n');
                   
-                  // Extraer metadata del formato: # Title\n## Category\n## Tags: tag1, tag2\n\nPrompt content...
+                  // Extraer metadata del formato: # Title\n## Author: name\n## Category: cat\n## Tags: tag1, tag2\n\nPrompt content...
                   let title = file.replace(/\.(md|txt)$/, '');
                   let author = '';
                   let category = 'general';
@@ -61,8 +61,8 @@ jobs:
                     
                     if (line.startsWith('# ')) {
                       title = line.substring(2);
-                    } else if (line.startsWith('## author:')) {
-                      author = line.substring(12).trim().toLowerCase();
+                    } else if (line.startsWith('## Author:')) {
+                      author = line.substring(10).trim();
                     } else if (line.startsWith('## Category:')) {
                       category = line.substring(12).trim().toLowerCase();
                     } else if (line.startsWith('## Tags:')) {
@@ -70,13 +70,15 @@ jobs:
                     } else if (line.startsWith('## Description:')) {
                       description = line.substring(15).trim();
                     } else if (line === '---' || line === '') {
-                      inPrompt = true;
+                      if (title && !inPrompt) {
+                        inPrompt = true;
+                      }
                     } else if (inPrompt) {
                       prompt += line + '\n';
                     }
                   }
 
-                  if (!description) {
+                  if (!description && prompt) {
                     description = prompt.substring(0, 100) + '...';
                   }
                   
