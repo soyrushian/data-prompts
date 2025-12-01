@@ -1,6 +1,6 @@
 # 📊 Data & BI Prompts Hub
 
-> Una colección comunitaria de prompts curados para profesionales de datos, analistas de BI y data engineers
+> Una colección comunitaria de prompts para profesionales de datos, analistas de BI y data engineers
 
 [![GitHub stars](https://img.shields.io/github/stars/soyrushian/data-prompts?style=social)](https://github.com/soyrushian/data-prompts)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
