@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2025-12-01T00:52:12.607Z",
+  "generatedAt": "2025-12-01T00:54:37.477Z",
   "totalPrompts": 2,
   "prompts": [
     {
@@ -16,7 +16,7 @@
         "Pandas"
       ],
       "filename": "python-data-cleaning-assistant.md",
-      "lastModified": "2025-12-01T00:52:10.403Z"
+      "lastModified": "2025-12-01T00:54:36.862Z"
     },
     {
       "id": "sql-query-optimizer",
@@ -31,7 +31,7 @@
         "query-tuning"
       ],
       "filename": "sql-query-optimizer.md",
-      "lastModified": "2025-12-01T00:52:10.403Z"
+      "lastModified": "2025-12-01T00:54:36.862Z"
     }
   ]
 }
