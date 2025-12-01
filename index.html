@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data & BI Prompts Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #060010;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #1a1a2e;
+            position: sticky;
+            top: 0;
+            background: rgba(6, 0, 16, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 24px 0;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .header-title h1 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .header-subtitle {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-contribute {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #01F59C;
+            color: #060010;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-contribute:hover {
+            background: rgba(1, 245, 156, 0.9);
+        }
+
+        .btn-donate {
+            padding: 10px;
+            border: 1px solid #01F59C;
+            color: #01F59C;
+            border-radius: 8px;
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-donate:hover {
+            background: rgba(1, 245, 156, 0.1);
+        }
+
+        /* Search */
+        .search-container {
+            margin: 32px 0;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            background: #0A0118;
+            border: 1px solid #1a1a2e;
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #01F59C;
+        }
+
+        .search-input::placeholder {
+            color: #6b7280;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .category-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 1px solid #1a1a2e;
+            background: #0A0118;
+            color: #9ca3af;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .category-btn:hover {
+            color: #FFFFFF;
+            border-color: rgba(1, 245, 156, 0.5);
+        }
+
+        .category-btn.active {
+            background: #01F59C;
+            color: #060010;
+            border-color: #01F59C;
+        }
+
+        /* Prompts Grid */
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        .prompt-card {
+            background: #0A0118;
+            border: 1px solid #1a1a2e;
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .prompt-card:hover {
+            border-color: rgba(1, 245, 156, 0.5);
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .prompt-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .copy-btn {
+            padding: 8px;
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #1a1a2e;
+        }
+
+        .prompt-description {
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: rgba(1, 245, 156, 0.1);
+            color: #01F59C;
+            border: 1px solid rgba(1, 245, 156, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #0A0118;
+            border: 1px solid #1a1a2e;
+            border-radius: 16px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            background: #060010;
+            padding: 24px;
+            border-bottom: 1px solid #1a1a2e;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-header-content {
+            flex: 1;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .modal-description {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .close-btn {
+            padding: 8px;
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-left: 16px;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #1a1a2e;
+            color: #FFFFFF;
+        }
+
+        .modal-content {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .prompt-box {
+            background: #060010;
+            border: 1px solid #1a1a2e;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .prompt-text {
+            color: #e5e7eb;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 12px;
+            margin-top: 16px;
+            transition: color 0.2s;
+        }
+
+        .author-link:hover {
+            color: #01F59C;
+        }
+
+        .modal-footer {
+            background: #060010;
+            padding: 16px 24px;
+            border-top: 1px solid #1a1a2e;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 12px 24px;
+            background: #01F59C;
+            color: #060010;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: rgba(1, 245, 156, 0.9);
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            background: #1a1a2e;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #2a2a3e;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #1a1a2e;
+            margin-top: 64px;
+        }
+
+        .footer-content {
+            padding: 24px 0;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        .footer-link {
+            color: #01F59C;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: #0A0118;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #01F59C;
+            border: 1px solid #1a1a2e;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 0;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .prompts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="header-title">
+                        <svg class="icon" fill="none" stroke="#01F59C" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+                        </svg>
+                        <h1>Data & BI Prompts Hub</h1>
+                    </div>
+                    <p class="header-subtitle">Prompts curados para análisis de datos y Business Intelligence</p>
+                </div>
+                
+                <div class="header-actions">
+                    <a href="https://github.com/soyrushian/data-prompts" class="btn-contribute" target="_blank">
+                        <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        Contribuir
+                    </a>
+                    <a href="https://github.com/sponsors/soyrushian" class="btn-donate" target="_blank" title="Apoyar con una donación">
+                        <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-container">
+            <svg class="search-icon icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar prompts...">
+        </div>
+
+        <div class="categories" id="categories"></div>
+
+        <div class="prompts-grid" id="promptsGrid"></div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <svg style="width: 64px; height: 64px; margin: 0 auto 16px; color: #4b5563;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg>
+            <p style="font-size: 18px;">No se encontraron prompts</p>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <p class="modal-description" id="modalDescription"></p>
+                </div>
+                <button class="close-btn" onclick="closeModal()">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="prompt-box">
+                    <pre class="prompt-text" id="modalPrompt"></pre>
+                </div>
+                <div class="tags" id="modalTags"></div>
+                <a href="#" id="authorLink" class="author-link" target="_blank">
+                    <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span id="authorName"></span>
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="copyModalBtn">
+                    <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <span id="copyBtnText">Copiar Prompt</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>
+                    Contribuye en <a href="https://github.com/soyrushian/data-prompts" class="footer-link" target="_blank">GitHub</a>
+                    • Power By <code><a href="https://www.linkedin.com/company/aloo-xp" class="footer-link" target="_blank">Aloo</a></code>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let prompts = [];
+        let categories = [
+            { id: 'all', name: 'Todos' }
+        ];
+
+        let selectedCategory = 'all';
+        let searchTerm = '';
+        let currentPrompt = null;
+        let isLoading = true;
+
+        // Cargar prompts desde el archivo JSON
+        async function loadPrompts() {
+            try {
+                const response = await fetch('prompts-index.json');
+                if (!response.ok) {
+                    throw new Error('No se pudo cargar prompts-index.json');
+                }
+                const data = await response.json();
+                
+                // Mapear los prompts del formato del JSON
+                prompts = data.prompts.map(p => ({
+                    id: p.id,
+                    title: p.title,
+                    description: p.description,
+                    category: p.category,
+                    prompt: p.prompt,
+                    tags: p.tags,
+                    author: p.filename ? p.filename.split('/').pop().replace('.md', '') : 'contributor',
+                    lastModified: p.lastModified
+                }));
+
+                // Generar categorías dinámicamente desde los prompts
+                const uniqueCategories = [...new Set(prompts.map(p => p.category))];
+                categories = [
+                    { id: 'all', name: 'Todos' },
+                    ...uniqueCategories.map(cat => ({
+                        id: cat,
+                        name: cat.charAt(0).toUpperCase() + cat.slice(1)
+                    }))
+                ];
+
+                isLoading = false;
+                renderCategories();
+                renderPrompts();
+            } catch (error) {
+                console.error('Error cargando prompts:', error);
+                isLoading = false;
+                showError('No se pudieron cargar los prompts. Asegúrate de que prompts-index.json existe en la misma carpeta.');
+            }
+        }
+
+        function showError(message) {
+            const grid = document.getElementById('promptsGrid');
+            const empty = document.getElementById('emptyState');
+            grid.style.display = 'none';
+            empty.style.display = 'block';
+            empty.innerHTML = `
+                <svg style="width: 64px; height: 64px; margin: 0 auto 16px; color: #ef4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <p style="font-size: 18px; color: #ef4444;">${message}</p>
+            `;
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categories');
+            container.innerHTML = categories.map(cat => `
+                <button class="category-btn ${selectedCategory === cat.id ? 'active' : ''}" onclick="selectCategory('${cat.id}')">
+                    ${cat.name}
+                </button>
+            `).join('');
+        }
+
+        function selectCategory(categoryId) {
+            selectedCategory = categoryId;
+            renderCategories();
+            renderPrompts();
+        }
+
+        function renderPrompts() {
+            const filtered = prompts.filter(p => {
+                const matchesSearch = p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    p.description.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesCategory = selectedCategory === 'all' || p.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            const grid = document.getElementById('promptsGrid');
+            const empty = document.getElementById('emptyState');
+
+            if (filtered.length === 0) {
+                grid.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            empty.style.display = 'none';
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="prompt-card" onclick="openModal('${p.id}')">
+                    <div class="prompt-header">
+                        <h3 class="prompt-title">${p.title}</h3>
+                        <button class="copy-btn" onclick="event.stopPropagation(); copyPrompt('${p.id}', this)">
+                            <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="prompt-description">${p.description}</p>
+                    <div class="tags">
+                        ${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(id) {
+            currentPrompt = prompts.find(p => p.id === id);
+            if (!currentPrompt) return;
+
+            document.getElementById('modalTitle').textContent = currentPrompt.title;
+            document.getElementById('modalDescription').textContent = currentPrompt.description;
+            document.getElementById('modalPrompt').textContent = currentPrompt.prompt;
+            document.getElementById('modalTags').innerHTML = currentPrompt.tags.map(tag => 
+                `<span class="tag">${tag}</span>`
+            ).join('');
+            document.getElementById('authorLink').href = `https://github.com/${currentPrompt.author}`;
+            document.getElementById('authorName').textContent = `Contributed by @${currentPrompt.author}`;
+            
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            currentPrompt = null;
+        }
+
+        function copyPrompt(id, btn) {
+            const prompt = prompts.find(p => p.id === id);
+            navigator.clipboard.writeText(prompt.prompt);
+            
+            const icon = btn.querySelector('svg');
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>';
+            
+            setTimeout(() => {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>';
+            }, 2000);
+        }
+
+        document.getElementById('copyModalBtn').addEventListener('click', () => {
+            if (!currentPrompt) return;
+            navigator.clipboard.writeText(currentPrompt.prompt);
+            
+            const btnText = document.getElementById('copyBtnText');
+            const icon = document.querySelector('#copyModalBtn svg');
+            
+            btnText.textContent = 'Copiado';
+            icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>';
+            
+            setTimeout(() => {
+                btnText.textContent = 'Copiar Prompt';
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>';
+            }, 2000);
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderPrompts();
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'modalOverlay') closeModal();
+        });
+
+        // Initial render
+        renderCategories();
+        renderPrompts();
+        document.addEventListener("DOMContentLoaded", loadPrompts);
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+name: Update Prompts Index
+
+on:
+  push:
+    paths:
+      - 'prompts/**'
+  workflow_dispatch:
+  
+permissions:
+  contents: write
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Generate prompts index
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+          
+          const promptsDir = './prompts';
+          const outputFile = './prompts-index.json';
+          
+          function readPromptsFromDirectory(dir) {
+            const prompts = [];
+            const files = fs.readdirSync(dir);
+            
+            files.forEach(file => {
+              const filePath = path.join(dir, file);
+              const stat = fs.statSync(filePath);
+              
+              if (stat.isFile() && (file.endsWith('.md') || file.endsWith('.txt'))) {
+                try {
+                  const content = fs.readFileSync(filePath, 'utf8');
+                  const lines = content.split('\n');
+                  
+                  // Extraer metadata del formato: # Title\n## Category\n## Tags: tag1, tag2\n\nPrompt content...
+                  let title = file.replace(/\.(md|txt)$/, '');
+                  let category = 'general';
+                  let tags = [];
+                  let description = '';
+                  let prompt = '';
+                  
+                  let inPrompt = false;
+                  
+                  for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    
+                    if (line.startsWith('# ')) {
+                      title = line.substring(2);
+                    } else if (line.startsWith('## Category:')) {
+                      category = line.substring(12).trim().toLowerCase();
+                    } else if (line.startsWith('## Tags:')) {
+                      tags = line.substring(8).split(',').map(t => t.trim());
+                    } else if (line.startsWith('## Description:')) {
+                      description = line.substring(15).trim();
+                    } else if (line === '---' || line === '') {
+                      inPrompt = true;
+                    } else if (inPrompt) {
+                      prompt += line + '\n';
+                    }
+                  }
+                  
+                  if (!description) {
+                    description = prompt.substring(0, 100) + '...';
+                  }
+                  
+                  prompts.push({
+                    id: file.replace(/\.(md|txt)$/, '').toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                    title,
+                    description,
+                    category,
+                    prompt: prompt.trim(),
+                    tags,
+                    filename: file,
+                    lastModified: stat.mtime.toISOString()
+                  });
+                } catch (error) {
+                  console.error(`Error reading file ${file}:`, error);
+                }
+              }
+            });
+            
+            return prompts;
+          }
+          
+          if (!fs.existsSync(promptsDir)) {
+            fs.mkdirSync(promptsDir, { recursive: true });
+          }
+          
+          const prompts = readPromptsFromDirectory(promptsDir);
+          
+          const index = {
+            version: '1.0',
+            generatedAt: new Date().toISOString(),
+            totalPrompts: prompts.length,
+            prompts
+          };
+          
+          fs.writeFileSync(outputFile, JSON.stringify(index, null, 2));
+          console.log(`✅ Generated index with ${prompts.length} prompts`);
+          EOF
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add prompts-index.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 Auto-update prompts index" && git push)
