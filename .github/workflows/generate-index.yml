@@ -48,7 +48,6 @@ jobs:
                   
                   // Extraer metadata del formato: # Title\n## Category\n## Tags: tag1, tag2\n\nPrompt content...
                   let title = file.replace(/\.(md|txt)$/, '');
-                  let author = '';
                   let category = 'general';
                   let tags = [];
                   let description = '';
