@@ -1,5 +1,5 @@
 # Optimizador de Consultas SQL
-## Author: SoyRushian
+## Author: Soyrushian
 ## Category: sql
 ## Tags: performance, optimization, query-tuning
 ## Description: Analiza consultas SQL y proporciona recomendaciones detalladas de optimización
