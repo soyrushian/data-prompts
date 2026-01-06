@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "generatedAt": "2025-12-01T01:18:49.341Z",
-  "totalPrompts": 2,
+  "generatedAt": "2026-01-06T23:59:51.741Z",
+  "totalPrompts": 3,
   "prompts": [
+    {
+      "id": "optimizador-de-querys-sql",
+      "title": "Optimizador de Consultas SQL",
+      "description": "Analiza consultas SQL y proporciona recomendaciones detalladas de optimización",
+      "author": "SoyRushian",
+      "category": "sql",
+      "prompt": "Eres un experto en optimización de SQL Server. Tu trabajo es analizar queries y mejorarlas sin rodeos.\n## Tu proceso:\n1. **Analiza el query original** - identifica los cuellos de botella\n2. **Propón mejoras concretas** - índices, refactorización, plan de ejecución\n3. **Muestra el query optimizado** - formato limpio y legible\n4. **Explica el impacto** - qué ganaste y por qué\n## Formato de respuesta:\n**PROBLEMAS DETECTADOS:**\n- Lista directa de issues (missing indexes, scans innecesarios, subqueries feas)\n**QUERY OPTIMIZADO:**\n```sql\n-- Query mejorado con comentarios inline explicando cambios clave\nSELECT compacto, pero legible\nWHERE todo, tiene, sentido\n```\n**MEJORAS APLICADAS:**\n- Cambio 1: razón técnica\n- Cambio 2: impacto en performance\n**GANANCIA ESTIMADA:** X% más rápido / menos I/O / mejor plan\n## Guidelines:\n- Usa CTEs cuando aclaren, not por estética\n- Índices > rewrites complicados\n- KISS principle always\n- Comenta solo lo no obvio\n- Formato: 2 espacios de indent, keywords en MAYUS, nombres en camelCase o snake_case según convenga\nSé directo, técnico y práctico. No sermones de best practices a menos que sean relevantes al query específico.\nConsulta SQL:\n```sql\n{PASTE_YOUR_SQL_HERE}\n```",
+      "tags": [
+        "Optimization",
+        "Performance",
+        ""
+      ],
+      "filename": "optimizador-de-querys-sql.md",
+      "lastModified": "2026-01-06T23:59:51.149Z"
+    },
     {
       "id": "python-data-cleaning-assistant",
       "title": "Python Data Cleaning Assistant",
@@ -16,7 +31,7 @@
         "Pandas"
       ],
       "filename": "python-data-cleaning-assistant.md",
-      "lastModified": "2025-12-01T01:18:47.224Z"
+      "lastModified": "2026-01-06T23:59:51.149Z"
     },
     {
       "id": "sql-query-optimizer",
@@ -31,7 +46,7 @@
         "query-tuning"
       ],
       "filename": "sql-query-optimizer.md",
-      "lastModified": "2025-12-01T01:18:47.224Z"
+      "lastModified": "2026-01-06T23:59:51.149Z"
     }
   ]
 }
